@@ -3,7 +3,7 @@ const NavBar = () => {
   return(
         <div className="navbar bg-base-300 px-5 shadow-lg">
           <div className="flex-1">
-            <a className="btn btn-ghost text-xl">Bloop</a>
+            <a className="btn btn-ghost text-xl">bloop</a>
           </div>
           <div className="flex-none gap-2">
             <div className="form-control">
