@@ -11,7 +11,7 @@ const Login = () =>{
   const [password, setPassword] = useState("Taresh@31");
   const user = useSelector((store) => store.user);
   const dispatch = useDispatch();
-  const navigator = useNavigate();
+  const navigate = useNavigate();
 
   const handleLogin = async () =>{
       try{
@@ -20,13 +20,12 @@ const Login = () =>{
           password
         }, {withCredentials: true,});
         dispatch(addUser(res.data))
-        return navigator("/feed");
+        return navigate("/feed");
       }catch(err){
         console.error(err);
       }
     }
 
-  if(!user){
     return (
       <div className="flex justify-center">
         <div className="card bg-base-200 text-primary-content w-96 my-24">
@@ -63,10 +62,7 @@ const Login = () =>{
           </div>
       </div>
     </div>
-    )
-  }
-  else return navigator("/feed");
-  
+    ) 
 }
 
 export default Login;
