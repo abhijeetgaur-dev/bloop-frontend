@@ -9,9 +9,12 @@ const Login = () =>{
 
   const [emailId, setEmailId] = useState("abhijeetgaur@gmail.com");
   const [password, setPassword] = useState("Taresh@31");
-  const user = useSelector((store) => store.user);
+  const [error, setError] = useState("");
+
+  useSelector((store) => store.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
 
   const handleLogin = async () =>{
       try{
@@ -19,11 +22,26 @@ const Login = () =>{
           emailId,
           password
         }, {withCredentials: true,});
-        dispatch(addUser(res.data))
-        return navigate("/feed");
-      }catch(err){
-        console.error(err);
-      }
+        
+        console.log(res);
+
+        if (res.status == 200) {
+          dispatch(addUser(res.data));
+          navigate("/feed");
+        } else if(res.status == 401) {
+          throw new Error ("Invalid Credentials")
+        }
+      } catch (err) {
+          console.log("Error:", err);
+          if (err.response) {
+            console.log("Response data:", err.response.data);
+            setError(err.response.data.message || "Invalid credentials. Please try again.");
+          } else if (err.request) {
+            setError("No response from the server. Please try again later.");
+          } else {
+            setError("Something went wrong. Please try again.");
+          }
+        }
     }
 
     return (
@@ -57,7 +75,7 @@ const Login = () =>{
                 </svg>
                 <input type="password" className="grow" placeholder="Password" value={password}onChange={(e) => setPassword(e.target.value)} />
               </label>
-  
+              <span className="text-red-500">{error}</span>
               <button className="btn btn-outline btn-secondary" onClick={handleLogin}>Submit</button>
           </div>
       </div>
