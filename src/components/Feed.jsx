@@ -5,8 +5,10 @@ import { addFeed } from "../utils/feedSlice";
 import { useEffect } from "react";
 import UserCard from "./UserCard";
 
+
 const Feed = () =>{
   const feed = useSelector((store) => store.feed);
+  const user =useSelector((store) => store.user);
   const dispatch = useDispatch();
   console.log(feed);
 
@@ -27,7 +29,7 @@ const Feed = () =>{
   
   return (
     <div className="flex justify-center my-20 ">
-      <UserCard />
+      <UserCard user = {user}/>
     </div>
   )
 }
