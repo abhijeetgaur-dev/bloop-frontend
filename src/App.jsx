@@ -6,6 +6,7 @@ import Login from "./components/Login"
 import Body from "./components/Body"
 import Feed from "./components/Feed"
 import EditProfile from "./components/EditProfile.jsx"
+import Connections  from "./components/Connections.jsx"
 
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
               <Route path="/login" element={<Login />} />
               <Route path= "/profile" element={<EditProfile />} />
               <Route path="/signup" element={<div>HELOOOO from SIGNUP</div>}/>
+              <Route path="/connections" element={<Connections />} />
             </Route>
           </Routes>
         </BrowserRouter>

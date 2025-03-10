@@ -5,7 +5,7 @@ import UserCard from "./UserCard"
 import { BASE_URL } from "../utils/constants";
 import { addUser } from "../utils/userSlice";
 
-const EditProfile = ( ) =>{
+const EditProfile = () =>{
 
   const user =  useSelector((store) => store.user);
   
@@ -42,9 +42,9 @@ const EditProfile = ( ) =>{
 
     return (
       <div>
-        <div className="flex flex-row mx-auto justify-center my-16">
-        <div className="flex justify-center pr-20">
-          <div className="card bg-base-200 text-primary-content w-96 ">
+        <div className="flex flex-row mx-auto justify-center my-8">
+        <div className="flex justify-center pr-20 ">
+          <div className="card bg-base-400 text-primary-content w-96 ">
             <div className="card-body">
             <h2 className="card-title justify-center">Edit Profile</h2>
             
@@ -108,7 +108,7 @@ const EditProfile = ( ) =>{
             </div>
         </div>
         </div>
-        <div className="flex items-center">
+        <div className="flex items-center ">
           <UserCard user = {{firstName, lastName, photoUrl, about, age, gender}}/>
         </div>
         </div>
