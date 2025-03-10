@@ -7,6 +7,7 @@ import Body from "./components/Body"
 import Feed from "./components/Feed"
 import EditProfile from "./components/EditProfile.jsx"
 import Connections  from "./components/Connections.jsx"
+import Requests from "./components/Requests.jsx"
 
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
               <Route path= "/profile" element={<EditProfile />} />
               <Route path="/signup" element={<div>HELOOOO from SIGNUP</div>}/>
               <Route path="/connections" element={<Connections />} />
+              <Route path="/requests" element={<Requests />} />
             </Route>
           </Routes>
         </BrowserRouter>

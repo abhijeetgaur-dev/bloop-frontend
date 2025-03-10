@@ -35,9 +35,9 @@ const Connections =  () => {
   {connections.map((user) => {
     const { firstName, lastName, about, age, gender, photoUrl } = user;
     return (
-      <div key={`${firstName}-${lastName}`} className="connectionCard p-4 bg-base-300 w-full my-7 rounded-lg shadow-md flex items-center gap-4 shadow-[0_3px_10px_rgb(0,0,0,0.2)]">
-        <img src={photoUrl} alt={`${firstName} ${lastName}`} className="w-16 h-16 rounded-full object-cover" />
-        <div>
+      <div key={`${firstName}-${lastName}`} className="connectionCard p-4 bg-base-300 w-full my-7 rounded-lg shadow-md flex items-center gap-4 shadow-[0_3px_10px_rgb(0,0,0,0.2)] pl-4">
+        <img src={photoUrl} alt={`${firstName} ${lastName}`} className="w-16 h-16 rounded-full object-cover ml-8" />
+        <div className="pl-14">
           <h2 className="text-lg font-semibold">{firstName} {lastName}</h2>
           <p className="text-sm text-gray-600">{about}</p>
           <p className="text-sm text-gray-500">Age: {age}, Gender: {gender}</p>

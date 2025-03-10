@@ -10,6 +10,9 @@ const NavBar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const requestCount = useSelector((state) => state.requests.requestCount);
+
+
   const handleLogout = async () =>{
     try{
       await axios.post(BASE_URL+"/logout",{} ,{withCredentials: true});
@@ -49,7 +52,19 @@ const NavBar = () => {
                       <span className="badge">New</span>
                     </Link>
                   </li>
-                  <li><Link to="/settings">Settings</Link></li>
+                  <li>
+                    <Link to="/connections" className="justify-between">
+                      Connections
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/requests" className="justify-between">
+                    Requests 
+                      {
+                        (requestCount) && <span className="badge">{requestCount}</span>
+                      }
+                    </Link>
+                  </li>
                   <li><a onClick={handleLogout}>Logout</a></li>
                 </ul>
               </div>
