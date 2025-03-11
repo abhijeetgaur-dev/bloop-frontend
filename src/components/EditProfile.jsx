@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import UserCard from "./UserCard"
@@ -7,19 +7,19 @@ import { addUser } from "../utils/userSlice";
 
 const EditProfile = () =>{
 
-  const user =  useSelector((store) => store.user);
+  const user=  useSelector((store) => store.user);
+
   
   const [firstName, setFirstName] = useState(user.firstName);
   const [lastName, setLastName] = useState(user.lastName);
-  const [photoUrl, setPhotoUrl] = useState(user.photoUrl);
-  const [age, setAge] = useState(user.age);
-  const [gender, setGender] = useState(user.gender);
-  const [about, setAbout] = useState(user.about);
+  const [photoUrl, setPhotoUrl] = useState(user.photoUrl || "");
+  const [age, setAge] = useState(user.age || "");
+  const [gender, setGender] = useState(user.gender || "");
+  const [about, setAbout] = useState(user.about || "");
   const [error, setError] = useState("");
   const [showToast ,setShowToast] = useState(false);
-  
   const dispatch = useDispatch();
-
+  
 
   const saveProfile = async () => {
     setError(""); //clearing any earlier errors
@@ -31,17 +31,25 @@ const EditProfile = () =>{
       setTimeout(()=>{
         setShowToast(false);
       }, 3000);
-
     }catch(err){
       setError(err.response.data);
-      
       console.log(err);
+    }    
+  };
+  
+  useEffect(() => {
+    if (user) {
+      setFirstName(user.firstName || "");
+      setLastName(user.lastName || "");
+      setPhotoUrl(user.photoUrl || "");
+      setAge(user.age || "");
+      setGender(user.gender || "");
+      setAbout(user.about || "");
     }
-      
-  }
-
+  }, [user])
     return (
       <div>
+
         <div className="flex flex-row mx-auto justify-center my-8">
         <div className="flex justify-center pr-20 ">
           <div className="card bg-base-400 text-primary-content w-96 ">

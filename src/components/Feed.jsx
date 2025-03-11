@@ -8,9 +8,8 @@ import UserCard from "./UserCard";
 
 const Feed = () =>{
   const feed = useSelector((store) => store.feed);
-  const user =useSelector((store) => store.user);
+
   const dispatch = useDispatch();
-  console.log(feed);
 
   const getFeed = async () =>{ 
     if (feed) return;
@@ -26,12 +25,19 @@ const Feed = () =>{
   useEffect(()=>{
     getFeed();
   },[])
+
+  if(!feed) return;
+
+  if (feed.length <= 0)
+    return <h1 className="flex justify-center my-10">No new users found!</h1>;
+
   
   return (
-    <div className="flex justify-center my-20 ">
-      <UserCard user = {user}/>
-    </div>
-  )
+    feed && (<div className="flex justify-center my-20 ">
+      
+      <UserCard user = {feed[0]}/>
+    </div>)
+  );
 }
 
 export default Feed;

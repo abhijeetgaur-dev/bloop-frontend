@@ -1,8 +1,10 @@
 import { useDispatch, useSelector } from "react-redux";
 import { BASE_URL } from "../utils/constants";
 import axios from "axios";
-import { removeUser } from "../utils/userSlice";
 import { Link, useNavigate } from "react-router-dom";
+import {removeUser ,addUser} from "../utils/userSlice" 
+import { useEffect } from "react";
+
 
 const NavBar = () => {
 
@@ -10,20 +12,31 @@ const NavBar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const requestCount = useSelector((state) => state.requests.requestCount);
+  // const requestCount = useSelector((state) => state.requests.requestCount);
 
 
-  const handleLogout = async () =>{
-    try{
-      await axios.post(BASE_URL+"/logout",{} ,{withCredentials: true});
+  const handleLogout = async () => {
+    try {
+      await axios.post(BASE_URL + "/logout", {}, { withCredentials: true });
       dispatch(removeUser());
-      return navigate("/login");
+      navigate("/login");             // Redirect to login
+    } catch (err) {
+      console.log("Logout error:", err);
     }
-    catch(err){
-      console.log(err)
-    }
-  }
+  };
 
+  // const fetchData = async () =>{
+  //   try{
+  //     const res= await axios.get(BASE_URL+"/profile/view", {withCredentials: true} )
+  //     dispatch(addUser(res?.data));
+  //   }catch(err){
+  //     console.log("Error : "+err);
+  //   }
+  // }
+
+  // useEffect(()=>{
+  //   fetchData();
+  // },[])
   
   return(
         <div className="navbar bg-base-300 px-5 shadow-lg">
@@ -61,8 +74,13 @@ const NavBar = () => {
                     <Link to="/requests" className="justify-between">
                     Requests 
                       {
-                        (requestCount) && <span className="badge">{requestCount}</span>
+                        // (requestCount)? <span className="badge">{requestCount}</span> :  <span></span>
                       }
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/feed" className="justify-between">
+                      Feed
                     </Link>
                   </li>
                   <li><a onClick={handleLogout}>Logout</a></li>

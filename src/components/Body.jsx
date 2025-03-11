@@ -13,10 +13,13 @@ const Body = () => {
   const userData = useSelector((store) => store.user);
 
   const fetchUser = async () => {
+    if(userData) return;
     try {
       const res = await axios.get(BASE_URL + "/profile/view", {
         withCredentials: true,
       });
+
+      console.log("data from body" + res.data);
       dispatch(addUser(res.data));
     } catch (err) {
       if (err.status === 401) {
@@ -27,10 +30,8 @@ const Body = () => {
   };
 
   useEffect(() => {
-    if (!userData) {
       fetchUser();
-    }
-  }, [userData]);
+  }, []);
 
   return (
     <div className="flex flex-col min-h-screen"> {/* Full height */}
