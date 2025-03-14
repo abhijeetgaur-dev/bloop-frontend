@@ -6,29 +6,22 @@ import { useEffect } from "react";
 
 const Requests = () => {
   const dispatch = useDispatch();
-  const dataStore = useSelector((store)=> store.requests);
-  const requests = Object.values(dataStore);
-  console.log(requests);
-  
+  const requests = useSelector((store)=> store.requests);
 
   const fetchRequests = async () =>{
     try{
       const res = await axios.get(BASE_URL+"/user/requests/recieved/" , {withCredentials: true});
       // console.log(res.data.data)
       dispatch(addRequests(res.data.data))
-
-
     }catch(err){
       console.error("Failed to fetch requests:", err);
     }
-   
   }
 
-
-  const reviewRequest = async (status, id ,connection_id) =>{
+  const reviewRequest = async (status, _id ) =>{
     try{
-      const res= await axios.post(BASE_URL + "/request/review/"+status+"/"+id ,{} ,{withCredentials: true});
-      dispatch(removeRequest(connection_id))
+      const res= await axios.post(BASE_URL + "/request/review/"+status+"/"+_id ,{},{withCredentials: true});
+      dispatch(removeRequest(_id)); 
     }catch(err){
       console.log(err);
     }
@@ -55,32 +48,32 @@ const Requests = () => {
         return (
           <div
             key={_id}
-            className=" flex justify-between items-center m-4 p-4 rounded-lg bg-base-300  mx-auto"
+            className="request-wrapper flex flex-row bg-base-300 my-3 items-center max-w-[800px] m-auto p-3 shadow-[0px_4px_16px_rgba(17,17,26,0.1),_0px_8px_24px_rgba(17,17,26,0.1),_0px_16px_56px_rgba(17,17,26,0.1)] rounded-xl"
           >
-            <div>
+            <div className="img-container flex-shrink-0">
               <img
                 alt="photo"
-                className="w-20 h-20 rounded-full"
+                className="w-24 h-24 rounded-full"
                 src={photoUrl}
               />
             </div>
-            <div className="text-left mx-4 ">
+            <div className="content-container text-left mx-4 min-w-[400px] flex-grow">
               <h2 className="font-bold text-xl">
                 {firstName + " " + lastName}
               </h2>
               {age && gender && <p>{age + ", " + gender}</p>}
               <p>{about}</p>
             </div>
-            <div>
+            <div className="btn-container flex">
               <button
                 className="btn btn-primary mx-2"
-                onClick={() => reviewRequest("rejected", _id,request._id)}
+                onClick={() => reviewRequest("rejected",request._id)}
               >
                 Reject
               </button>
               <button
                 className="btn btn-secondary mx-2"
-                onClick={() => reviewRequest("accepted", _id,request._id)}
+                onClick={() => reviewRequest("accepted", request._id)}
               >
                 Accept
               </button>

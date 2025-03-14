@@ -19,7 +19,6 @@ const Body = () => {
         withCredentials: true,
       });
 
-      console.log("data from body" + res.data);
       dispatch(addUser(res.data));
     } catch (err) {
       if (err.status === 401) {

@@ -1,15 +1,11 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch} from "react-redux";
 import UserCard from "./UserCard"
 import { BASE_URL } from "../utils/constants";
 import { addUser } from "../utils/userSlice";
 
-const EditProfile = () =>{
-
-  const user=  useSelector((store) => store.user);
-
-  
+const EditProfile = ({ user }) =>{  
   const [firstName, setFirstName] = useState(user.firstName);
   const [lastName, setLastName] = useState(user.lastName);
   const [photoUrl, setPhotoUrl] = useState(user.photoUrl || "");
@@ -37,16 +33,16 @@ const EditProfile = () =>{
     }    
   };
   
-  useEffect(() => {
-    if (user) {
-      setFirstName(user.firstName || "");
-      setLastName(user.lastName || "");
-      setPhotoUrl(user.photoUrl || "");
-      setAge(user.age || "");
-      setGender(user.gender || "");
-      setAbout(user.about || "");
-    }
-  }, [user])
+  // useEffect(() => {
+  //   if (user) {
+  //     setFirstName(user.firstName || "");
+  //     setLastName(user.lastName || "");
+  //     setPhotoUrl(user.photoUrl || "");
+  //     setAge(user.age || "");
+  //     setGender(user.gender || "");
+  //     setAbout(user.about || "");
+  //   }
+  // }, [user])
     return (
       <div>
 

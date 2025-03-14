@@ -1,6 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
 import { useNavigate } from "react-router-dom";
 import { BASE_URL } from "../utils/constants";
@@ -14,7 +14,6 @@ const Login = () =>{
   const [error, setError] = useState("");
   const [isLoginForm, setIsLoginForm] = useState(true);
 
-  useSelector((store) => store.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -38,22 +37,21 @@ const Login = () =>{
       }
     }
 
-
-
   const handleLogin = async () =>{
       try{
         const res = await axios.post(BASE_URL+"/login",{
           emailId,
           password
         }, {withCredentials: true,});
-        
 
-        if (res.status == 200) {
-          dispatch(addUser(res.data));
-          navigate("/feed");
-        } else if(res.status == 401) {
-          throw new Error ("Invalid Credentials")
-        }
+        dispatch(addUser(res.data));
+        return navigate("/");
+        // if (res.status == 200) {
+        //   dispatch(addUser(res.data));
+        //   navigate("/feed");
+        // } else if(res.status == 401) {
+        //   throw new Error ("Invalid Credentials")
+        // }
       } catch (err) {
           console.log("Error:", err);
           if (err.response) {
